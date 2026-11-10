@@ -32,17 +32,17 @@ async def read_user(user_id: str):
     return {"user_id": user_id}
 
 # path operations cannot be redefined
-@app.get("users")
+@app.get("/users")
 async def read_users():
     return ["Rick", "Morty"]
 
 # this operation never runs.
-@app.get("users")
+@app.get("/users")
 async def read_users():
     return ["Bean", "Elfo"]
 
 # create a path operation using the predefined values
-@app.get("models/{model_name}")
+@app.get("/models/{model_name}")
 async def get_model(model_name: "ModelName"):
     if model_name is ModelName.alexnet:
         return {"model_name": model_name, "message": "Deep Learning FTW!"}
