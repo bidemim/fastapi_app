@@ -20,3 +20,13 @@ async def read_user_me():
 @app.get("/users/user_id")
 async def read_user(user_id: str):
     return {"user_id": user_id}
+
+# path operations cannot be redefined
+@app.get("users")
+async def read_users():
+    return ["Rick", "Morty"]
+
+# this operation never runs
+@app.get("users")
+async def read_users():
+    return ["Bean", "Elfo"]
