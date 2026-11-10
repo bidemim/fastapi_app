@@ -43,7 +43,7 @@ async def read_users():
 
 # create a path operation using the predefined values
 @app.get("/models/{model_name}")
-async def get_model(model_name: "ModelName"):
+async def get_model(model_name: ModelName):
     if model_name is ModelName.alexnet:
         return {"model_name": model_name, "message": "Deep Learning FTW!"}
 
@@ -51,3 +51,8 @@ async def get_model(model_name: "ModelName"):
         return {"model_name": model_name, "message": "LeCNN all images"}
 
     return {"model_name": model_name, "message": "Have some residuals!"}
+
+# create path operations for file paths
+@app.get("/files/{file_path:path}")
+async def read_file(file_path: str):
+    return {"file_path": file_path}
