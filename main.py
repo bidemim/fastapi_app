@@ -1,4 +1,14 @@
+# import Enum 
+from enum import Enum
+
 from fastapi import FastAPI
+
+# use Enum class to create a subclass with predefined attributes values
+class ModelName(str, Enum):
+    alexnet = "alexnet"
+    resnet = "resnet"
+    lenet = "lenet"
+
 
 app = FastAPI()
 
@@ -26,7 +36,18 @@ async def read_user(user_id: str):
 async def read_users():
     return ["Rick", "Morty"]
 
-# this operation never runs
+# this operation never runs.
 @app.get("users")
 async def read_users():
     return ["Bean", "Elfo"]
+
+# create a path operation using the predefined values
+@app.get("models/{model_name}")
+async def get_model(model_name: "ModelName"):
+    if model_name is ModelName.alexnet:
+        return {"model_name": model_name, "message": "Deep Learning FTW!"}
+
+    if model_name == "lenet":
+        return {"model_name": model_name, "message": "LeCNN all images"}
+
+    return {"model_name": model_name, "message": "Have some residuals!"}
